@@ -85,11 +85,11 @@ def bfs(laberinto):
 
         for v in vecinos(laberinto, actual): #|recorre los vecinos del nodo actual
             if v not in visitados:#si el vecino no ha sido visitado
-                visitados.add(v) #lo marca como visitado
+                visitados.add(v) #lo marca como visitado 
                 padre[v] = actual #registra el padre del nodo vecino
                 cola.append(v) #lo añade a la cola
 
-    # Reconstrucción del camino
+    # Reconstrucción del camino     
     camino = []
     actual = meta #comienza desde la meta
     while actual != inicio: #mientras no se llegue al inicio
