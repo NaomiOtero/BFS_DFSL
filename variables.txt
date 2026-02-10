@@ -1,0 +1,38 @@
+Variables:
+abiertos= []; 				Arreglo que se usara como cola de prioridad que recibiria los nodos por explorar
+f_inicial = 0; 				Costo inicial(f = g+h)
+elemento=(f_inicial, nodo);		Tupla, el costo inicial y las coordenadas(creo, hay le checan)
+g_costos={inicio:0};			diccionario que guardara el mejor costo conocido desde el nodo inicial, primer parametro es la coordenada y el segundo el costo/peso
+padre={};				diccionario que se usara para guardar los nodos precedentes desde el nodo final o la meta
+cerrados = set();			guardara un conjunto con los nodos que ya fueron evaluados en el algoritmo
+nodos_visitados=0;			acumulador que ira aumentando de uno en uno con los nodos que ya fueron visitados o explorados
+while len(abiertos) > 0;		mientras la longitud del arreglo abiertos sea mayor a 0 se sigue ejecutando, o mientras aun haya nodos en la cola
+elemento=heapq.heappop(abiertos);	elemento recibe la extracción del mejor nodo conocido o algo asi
+actual=elemento[1];			nodo con menor f o heuristica, nuevamente creo(se toma el segundo valor guardado en elemento y se guarda en nodo)
+if actual in cerrados;			si el nodo ya se encuentra en el conjunto de cerrados, se ignora y continua el ciclo
+cerrados.add(actual);			el nodo actual se agrega al conjunto de cerrados
+nodos_visitado +=1;			se incrementa en 1 en cada ciclo
+camino_parcial=[];			arreglo que guardara el camino desde el nodo inicial al nodo actual(no final), nos ayudara a hacer las impresiones en pantalla para ver como se va moviendo el algoritmo o el estado del algoritmo
+while aux != inicio;			en este ciclo while se usa una variable auxiliar para imprimir el camino parcial y no perder los valores para la reconstrucción final del camino
+nodos_abiertos=[];			arreglo que guardara los nodos que estan en espera para ser visitados(pendientes), o que estan en la "frontera"
+mostrar_laberinto_aestrella;		es como una minifunción(no se si funciones asi) para ir viendo como se mueve el algoritmo o imprimir el estado actual del algoritmo
+if actual == meta;			si el nodo actual es igual a al nodo meta, entonces ya se rompe el ciclo
+for v in vecinos(laberinto, actual);	se inicializa un ciclo for, que llama a la función vecinos que recibe como parametros el laberinto con el que estamos trabajando y el nodo actual, "v" es vecinos del nodo actual
+nuevo_g = g_costos[actual]+costo_celda(laberinto,v); se hace la suma para crear un nuevo costo, sumando el costo del nodo actual más el costo de la celda a la que se movera el algoritmo, en costo_celda, se llama a la función costo_celda vea, y recibe los parametros del laberinto y los "vecinos" del nodo actual
+ya_esta_cerradpp=v in cerrados;		a esta variable se le asigna los vecinos que ya se encuentran en el conjunto de cerrados es decir que ya fueron visitados
+costo_guardado=g_costos.get(v,float('inf')); se le asigna el valor del diccionario g_costos que lleva las coordenadas y peso del nodo.
+costo_nuevo = nuevo_g			se le asigna nuevo_g
+if ya_esta_cerrado and costo_nuevo>=costo_guardado;  si "v"ecinos ya se encuentra en cerrados(nodos visitados) y el nuevo costo del camino(costo_nuevo) es mayor/igual que el costo actual(costo guardado) entonces continua con el algoritmo
+costo_anterior=g_costos.get(v, float('inf'));	recibe el conjunto de g_costos
+costo_nuevo=nuevo_g;			recibe nuevo costo 
+if nuevo_g<costo_anterior;		comienza la relajacion, si el nuevo costo es menor que el anterior
+padre[v];				se actualiza padre
+g_costos[v]=actual;			se actualuza g_costos con el noco actual
+costo_estimado=heuristica(v,meta)	se actualiza costo estimado
+f=costo_nuevo + costo_estimado;		se actualiza la euristica
+heapq.heappush(abiertos,(f,v))		se agrega a la variable abiertos=[]
+
+
+
+
+
